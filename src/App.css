@@ -11,4 +11,34 @@
   background-color: #dddddd; }
 
 .App-body .life-area table {
-  margin: 1em auto; }
+  margin: 1em auto;
+  border-collapse: collapse;
+  border-spacing: 0; }
+  .App-body .life-area table td.square {
+    width: 20px;
+    position: relative;
+    margin: 20em auto; }
+    .App-body .life-area table td.square label {
+      width: 20px;
+      height: 20px;
+      cursor: pointer;
+      position: absolute;
+      top: 0;
+      left: 0;
+      background: grey;
+      border-radius: 0; }
+      .App-body .life-area table td.square label:after {
+        content: '';
+        width: 20px;
+        height: 20px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        background: green;
+        opacity: 0; }
+      .App-body .life-area table td.square label:hover::after {
+        opacity: 0.3; }
+    .App-body .life-area table td.square input[type=checkbox] {
+      visibility: hidden; }
+      .App-body .life-area table td.square input[type=checkbox]:checked + label:after {
+        opacity: 1; }

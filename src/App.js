@@ -12,29 +12,36 @@ class App extends Component {
       nRow: 20,
       nColumn: 20,
       world: [],
-      play: true
+      play: true,
+      speed: 250,
+      generation: 0,
+      timerOn: false
     };
 
     this.onStart = this.onStart.bind(this);
     this.onPause = this.onPause.bind(this);
     this.onClear = this.onClear.bind(this);
     this.onSwitchCase = this.onSwitchCase.bind(this);
-    this.BuildRandomWorld = this.BuildRandomWorld.bind(this);
+    this.buildWorld = this.buildWorld.bind(this);
+    this.onNextGen = this.onNextGen.bind(this);
     this.nextGen = this.nextGen.bind(this);
+    this.onRandom = this.onRandom.bind(this);
+    this.onSetSpeed = this.onSetSpeed.bind(this);
+    this.onSetBoard = this.onSetBoard.bind(this);
   }
 
   componentDidMount() {
-    const firstWorld = this.BuildRandomWorld();
-    console.log("componentDidMount","first world created", firstWorld);
+    const firstWorld = this.buildWorld();
+    console.log("App Did Mount","first world created", firstWorld);
     this.setState({world: firstWorld});
   }
 
-  BuildRandomWorld(nRow = this.state.nRow, nColumn = this.state.nColumn) {
+  buildWorld(type = "random", nRow = this.state.nRow, nColumn = this.state.nColumn) {
     let randomWorld = [];
     for (let r = 0 ; r < nRow ; r++) {
       let row = [];
       for (let c = 0 ; c < nColumn ; c++) {
-        if(Math.random() > 0.5) {
+        if(Math.random() > 0.5 && type === "random") {
           row[c] = 1;
         } else {
           row[c] = 0;
@@ -46,10 +53,16 @@ class App extends Component {
   }
 
   componentDidUpdate() {
-    console.log("componentDidUpdate");
-    /*setInterval(() => {
+    if (!this.state.timerOn && this.state.play) {
+      this.timer = setInterval(this.onNextGen,this.state.speed);
+      this.setState({timerOn: true});
+    }
+  }
+
+  onNextGen() {
+    if (this.state.play) {
       this.nextGen();
-    }, 200);*/
+    }
   }
 
   nextGen() {
@@ -61,7 +74,7 @@ class App extends Component {
         newWorld[r].push(alive);
       }
     }
-    this.setState({world: newWorld});
+    this.setState({world: newWorld, generation: this.state.generation + 1});
   }
 
   destin(row, col, world) {
@@ -70,7 +83,7 @@ class App extends Component {
       if (c >= 0 && c < this.state.nColumn) {
         for (let r = row - 1 ; r <= row + 1 ; r++) {
           if (r >= 0 && r < this.state.nRow && !(c === col && r === row) ) {
-            if (this.boxValue(r,c) === 1) {
+            if (this.state.world[r][c] === 1) {
               around += 1;
             }
           }
@@ -86,39 +99,56 @@ class App extends Component {
     }
   }
 
-  boxValue(nRows,nColumn) {
-    /*let theTable = document.querySelector(".life-area table");
-    let rows = theTable.getElementsByTagName("tr");
-    let cells = rows[nRows].getElementsByTagName("td");
-    let cell = cells[nColumn];
-    let alive = cell.getElementsByTagName("input")[0].checked;
-    return alive;*/
-    return this.state.world[nRows][nColumn];
-  }
-
   onStart() {
-    //TODO start the life
-    console.log("TODO start the life");
-    this.nextGen();
+    this.setState({play: true});
   }
 
   onPause() {
-    //TODO Pause the life
-    console.log("TODO Pause the life");
+    clearTimeout(this.timer);
+    this.setState({play: false, timerOn: false});
   }
 
   onClear() {
-    //TODO Clear the life
-    console.log("TODO Clear the life");
+    let clearWorld = this.buildWorld("clear");
+    if (this.timer) {
+      clearTimeout(this.timer);
+    }
+    this.setState({world: clearWorld, play: false, timerOn: false, generation: 0});
+  }
+
+  onRandom() {
+    let randomWorld = this.buildWorld();
+    if (this.timer) {
+      clearTimeout(this.timer);
+    }
+    this.setState({world: randomWorld, play: false, timerOn: false, generation: 0});
   }
 
   onSwitchCase(event) {
-      console.log("SwitchCase", event.path[1].cellIndex, event.path[2].rowIndex);
       const row = event.path[2].rowIndex;
       const col = event.path[1].cellIndex;
       let changedWorld = this.state.world;
       changedWorld[row].splice(col, 1, changedWorld[row][col] === 1 ? 0 : 1);
       this.setState({world: changedWorld});
+  }
+
+  onSetSpeed(speed) {
+    return () => {
+      if (this.timer) {
+        clearTimeout(this.timer);
+      }
+      this.setState({speed: speed, timerOn: false});
+    }
+  }
+
+  onSetBoard(width, height) {
+    return () => {
+      if (this.timer) {
+        clearTimeout(this.timer);
+      }
+      let newWorld = this.buildWorld("random", height, width);
+      this.setState({world: newWorld, nRow: height, nColumn: width, play: false, timerOn: false, generation: 0});
+    }
   }
 
   render() {
@@ -132,12 +162,17 @@ class App extends Component {
             onStart={this.onStart}
             onPause={this.onPause}
             onClear={this.onClear}
+            onRandom={this.onRandom}
+            generation={this.state.generation}
           />
           <LifeArea
             world={this.state.world}
             onSwitchCase={this.onSwitchCase}
           />
-          <OptionsPanel />
+          <OptionsPanel
+            onSetSpeed={this.onSetSpeed}
+            onSetBoard={this.onSetBoard}
+          />
         </div>
       </div>
     );

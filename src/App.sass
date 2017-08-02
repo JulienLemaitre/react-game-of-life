@@ -1,0 +1,59 @@
+$alive : green
+$dead : grey
+
+.App
+  text-align: center
+
+.App-header
+  background-color: #222
+  padding: 20px
+  color: white
+
+.App-body
+  .control-panel, .options-panel
+    padding: 2em
+    background-color: #dddddd
+  
+  .life-area table
+    margin: 1em auto
+    border-collapse: collapse
+    border-spacing: 0
+
+    td.square
+      width: 20px
+      position: relative
+      margin: 20em auto
+
+      label
+        width: 20px
+        height: 20px
+        cursor: pointer
+        position: absolute
+        top: 0
+        left: 0
+        background: $dead
+        border-radius: 0
+        //box-shadow: inset 0px 1px 1px rgba(0,0,0,0.5), 0px 1px 0px rgba(255,255,255,.4)
+
+        &:after
+          content: ''
+          width: 20px
+          height: 20px
+          position: absolute
+          top: 0
+          left: 0
+          //border: 3px solid #fcfff4
+          //border-top: none
+          //border-right: none
+          background: $alive
+          opacity: 0
+          //transform: rotate(-45deg)
+
+        &:hover::after
+          opacity: 0.3
+
+      input[type=checkbox]
+        visibility: hidden
+
+        &:checked + label:after
+          opacity: 1

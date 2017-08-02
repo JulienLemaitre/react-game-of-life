@@ -3,7 +3,6 @@ import React from 'react';
 const LifeArea = ({ world, onSwitchCase }) => {
 
   const displayWorld = () => {
-    console.log("displayWorld");
     cleanGrid(".life-area");
     buildGrid(".life-area", world);
   };
@@ -31,13 +30,17 @@ const LifeArea = ({ world, onSwitchCase }) => {
       let row = document.createElement("tr");
       for(let c = 0 ; c<width ; c++) {
         let cell = document.createElement("td");
+        cell.setAttribute("class","square");
         let box = document.createElement("input");
         box.setAttribute("type","checkbox");
-        box.addEventListener("click", onSwitchCase);
+        // box.addEventListener("click", onSwitchCase);
         if (world[l][c] === 1) {
           box.setAttribute("checked",true);
         }
+        let label = document.createElement("label");
+        label.addEventListener("click", onSwitchCase);
         cell.appendChild(box);
+        cell.appendChild(label);
         row.appendChild(cell);
       }
 
