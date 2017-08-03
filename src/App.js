@@ -9,8 +9,8 @@ class App extends Component {
     super(props);
 
     this.state = {
-      nRow: 20,
-      nColumn: 20,
+      nRow: 30,
+      nColumn: 50,
       world: [],
       play: true,
       speed: 250,
@@ -32,7 +32,6 @@ class App extends Component {
 
   componentDidMount() {
     const firstWorld = this.buildWorld();
-    console.log("App Did Mount","first world created", firstWorld);
     this.setState({world: firstWorld});
   }
 
@@ -77,23 +76,25 @@ class App extends Component {
     this.setState({world: newWorld, generation: this.state.generation + 1});
   }
 
-  destin(row, col, world) {
+  destin(row, col, world, width = this.state.nColumn, height = this.state.nRow) {
     let alive = world[row][col], around = 0;
     for (let c = col - 1 ; c <= col + 1 ; c++) {
-      if (c >= 0 && c < this.state.nColumn) {
+      if (c >= 0 && c < width) {
         for (let r = row - 1 ; r <= row + 1 ; r++) {
-          if (r >= 0 && r < this.state.nRow && !(c === col && r === row) ) {
-            if (this.state.world[r][c] === 1) {
+          if (r >= 0 && r < height && !(c === col && r === row) ) {
+            if (world[r][c] > 0) {
               around += 1;
             }
           }
         }
       }
     }
-    if (alive === 1 && around >= 2 && around <= 3) {
+    if (alive > 0 && around >= 2 && around <= 3) {
       return 1;
-    } else if(alive === 0 && around === 3) {
-      return 1;
+    } else if (alive < 1 && around === 3) {
+      return 2;
+    } else if (alive > 0 && around > 3) {
+      return -1;
     } else {
       return 0;
     }
@@ -125,11 +126,11 @@ class App extends Component {
   }
 
   onSwitchCase(event) {
-      const row = event.path[2].rowIndex;
-      const col = event.path[1].cellIndex;
-      let changedWorld = this.state.world;
-      changedWorld[row].splice(col, 1, changedWorld[row][col] === 1 ? 0 : 1);
-      this.setState({world: changedWorld});
+    const row = event.target.dataset.row;
+    const col = event.target.dataset.cell;
+    let changedWorld = this.state.world;
+    changedWorld[row].splice(col, 1, changedWorld[row][col] > 0 ? 0 : 1);
+    this.setState({world: changedWorld});
   }
 
   onSetSpeed(speed) {

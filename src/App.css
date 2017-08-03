@@ -1,44 +1,67 @@
+html, body, #root {
+  height: 100%;
+  min-height: 100%;
+  font-family: 'Comfortaa', cursive; }
+
 .App {
-  text-align: center; }
+  text-align: center;
+  background: radial-gradient(ellipse at center bottom, #6fa92d 0%, #323c58 75%);
+  min-height: 100%; }
 
 .App-header {
-  background-color: #222;
   padding: 20px;
   color: white; }
 
-.App-body .control-panel, .App-body .options-panel {
+.App-body .panel-area {
   padding: 2em;
-  background-color: #dddddd; }
+  color: white; }
 
-.App-body .life-area table {
-  margin: 1em auto;
-  border-collapse: collapse;
-  border-spacing: 0; }
-  .App-body .life-area table td.square {
-    width: 20px;
-    position: relative;
-    margin: 20em auto; }
-    .App-body .life-area table td.square label {
-      width: 20px;
-      height: 20px;
-      cursor: pointer;
-      position: absolute;
-      top: 0;
-      left: 0;
-      background: grey;
-      border-radius: 0; }
-      .App-body .life-area table td.square label:after {
-        content: '';
-        width: 20px;
-        height: 20px;
-        position: absolute;
-        top: 0;
-        left: 0;
-        background: green;
-        opacity: 0; }
-      .App-body .life-area table td.square label:hover::after {
-        opacity: 0.3; }
-    .App-body .life-area table td.square input[type=checkbox] {
-      visibility: hidden; }
-      .App-body .life-area table td.square input[type=checkbox]:checked + label:after {
-        opacity: 1; }
+.App-body .control-panel .generation {
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 1em;
+  width: 8em;
+  text-align: left; }
+
+.App-body .options-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center; }
+  .App-body .options-panel .central {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; }
+  .App-body .options-panel .option:first-child {
+    margin-bottom: 0.5em; }
+  .App-body .options-panel .type {
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 1em; }
+
+.App-body .life-area {
+  display: flex;
+  justify-content: center; }
+  .App-body .life-area .grid {
+    margin: 1em auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: #323c58;
+    padding: 1px 0 0 1px; }
+    .App-body .life-area .grid .line {
+      display: flex;
+      flex-direction: row;
+      justify-content: center; }
+    .App-body .life-area .grid .cell {
+      width: 8px;
+      height: 8px;
+      position: relative;
+      margin: 0 1px 1px 0;
+      background-color: #3c4662;
+      cursor: pointer; }
+      .App-body .life-area .grid .cell.alive {
+        background-color: #24a934; }
+      .App-body .life-area .grid .cell.born {
+        background-color: #6fa92d; }
+      .App-body .life-area .grid .cell.died {
+        background-color: #39635e; }

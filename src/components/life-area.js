@@ -18,29 +18,32 @@ const LifeArea = ({ world, onSwitchCase }) => {
 
   const buildGrid = (targetContainer,world) => {
     if (world.length < 1) {
-      console.log("error: no world given to build");
       return;
     }
     const height = world.length;
     const width = world[0].length;
     let container = document.querySelector(targetContainer);
-    let grid = document.createElement("table");
+    let grid = document.createElement("div");
+    grid.className = "grid";
     container.appendChild(grid);
-    for(let l = 0; l<height ; l++) {
-      let row = document.createElement("tr");
+    for(let r = 0; r<height ; r++) {
+      let row = document.createElement("div");
+      row.className = "line";
       for(let c = 0 ; c<width ; c++) {
-        let cell = document.createElement("td");
-        cell.setAttribute("class","square");
-        let box = document.createElement("input");
-        box.setAttribute("type","checkbox");
-        // box.addEventListener("click", onSwitchCase);
-        if (world[l][c] === 1) {
-          box.setAttribute("checked",true);
+        let cell = document.createElement("div");
+        // cell.className = "cell";
+        cell.setAttribute("data-row",`${r}`);
+        cell.setAttribute("data-cell",`${c}`);
+        if (world[r][c] === 1) {
+          cell.className = "cell alive";
+        } else if (world[r][c] === 2) {
+          cell.className = "cell alive born";
+        } else if (world[r][c] === -1) {
+          cell.className = "cell died";
+        } else {
+          cell.className = "cell";
         }
-        let label = document.createElement("label");
-        label.addEventListener("click", onSwitchCase);
-        cell.appendChild(box);
-        cell.appendChild(label);
+        cell.addEventListener("click", onSwitchCase);
         row.appendChild(cell);
       }
 
