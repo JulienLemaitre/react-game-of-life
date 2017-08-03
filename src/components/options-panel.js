@@ -16,9 +16,9 @@ const OptionsPanel = (props) => {
         <div className="option">
           <div className="type">Speed :</div>
           <div className="btn-group">
-            <button className="btn btn-default" type="button" onClick={props.onSetSpeed(600)}>Slow</button>
-            <button className="btn btn-default" type="button" onClick={props.onSetSpeed(250)}>Middle</button>
-            <button className="btn btn-default" type="button" onClick={props.onSetSpeed(50)}>Fast</button>
+            <button className="btn btn-default" type="button" onClick={props.onSetSpeed(300)}>Slow</button>
+            <button className="btn btn-default" type="button" onClick={props.onSetSpeed(150)}>Middle</button>
+            <button className="btn btn-default" type="button" onClick={props.onSetSpeed(10)}>Fast</button>
           </div>
         </div>
       </div>

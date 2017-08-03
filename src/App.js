@@ -13,9 +13,10 @@ class App extends Component {
       nColumn: 50,
       world: [],
       play: true,
-      speed: 250,
+      speed: 150,
       generation: 0,
-      timerOn: false
+      timerOn: false,
+      sizeHasToChange: true
     };
 
     this.onStart = this.onStart.bind(this);
@@ -28,6 +29,7 @@ class App extends Component {
     this.onRandom = this.onRandom.bind(this);
     this.onSetSpeed = this.onSetSpeed.bind(this);
     this.onSetBoard = this.onSetBoard.bind(this);
+    this.onSizeChange = this.onSizeChange.bind(this);
   }
 
   componentDidMount() {
@@ -148,8 +150,12 @@ class App extends Component {
         clearTimeout(this.timer);
       }
       let newWorld = this.buildWorld("random", height, width);
-      this.setState({world: newWorld, nRow: height, nColumn: width, play: false, timerOn: false, generation: 0});
+      this.setState({world: newWorld, nRow: height, nColumn: width, play: false, timerOn: false, generation: 0, sizeHasToChange: true});
     }
+  }
+
+  onSizeChange() {
+    this.setState({ sizeHasToChange: false });
   }
 
   render() {
@@ -169,6 +175,8 @@ class App extends Component {
           <LifeArea
             world={this.state.world}
             onSwitchCase={this.onSwitchCase}
+            sizeHasToChange={this.state.sizeHasToChange}
+            onSizeChange={this.onSizeChange}
           />
           <OptionsPanel
             onSetSpeed={this.onSetSpeed}

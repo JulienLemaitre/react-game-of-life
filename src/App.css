@@ -11,6 +11,10 @@ html, body, #root {
 .App-header {
   padding: 20px;
   color: white; }
+  .App-header h1 {
+    color: #fecc00;
+    font-size: 3.5em;
+    font-weight: bold; }
 
 .App-body .panel-area {
   padding: 2em;
@@ -20,7 +24,7 @@ html, body, #root {
   display: inline-block;
   vertical-align: middle;
   margin-left: 1em;
-  width: 8em;
+  width: 10em;
   text-align: left; }
 
 .App-body .options-panel {

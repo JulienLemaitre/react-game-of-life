@@ -1,10 +1,14 @@
 import React from 'react';
 
-const LifeArea = ({ world, onSwitchCase }) => {
+const LifeArea = ({ world, onSwitchCase, sizeHasToChange, onSizeChange }) => {
 
   const displayWorld = () => {
-    cleanGrid(".life-area");
-    buildGrid(".life-area", world);
+    if (sizeHasToChange) {
+      cleanGrid(".life-area");
+      buildGrid(".life-area", world);
+    } else {
+      changeGrid(".life-area", world);
+    }
   };
 
   const cleanGrid = (targetContainer) => {
@@ -31,9 +35,7 @@ const LifeArea = ({ world, onSwitchCase }) => {
       row.className = "line";
       for(let c = 0 ; c<width ; c++) {
         let cell = document.createElement("div");
-        // cell.className = "cell";
-        cell.setAttribute("data-row",`${r}`);
-        cell.setAttribute("data-cell",`${c}`);
+        cell.setAttribute("id",`cell-${r}-${c}`);
         if (world[r][c] === 1) {
           cell.className = "cell alive";
         } else if (world[r][c] === 2) {
@@ -48,6 +50,29 @@ const LifeArea = ({ world, onSwitchCase }) => {
       }
 
       grid.appendChild(row);
+    }
+    onSizeChange();
+  };
+
+  const changeGrid = (targetContainer,world) => {
+    if (world.length < 1) {
+      return;
+    }
+    const height = world.length;
+    const width = world[0].length;
+    for(let r = 0; r<height ; r++) {
+      for(let c = 0 ; c<width ; c++) {
+        let cell = document.getElementById(`cell-${r}-${c}`);
+        if (world[r][c] === 1) {
+          cell.className = "cell alive";
+        } else if (world[r][c] === 2) {
+          cell.className = "cell alive born";
+        } else if (world[r][c] === -1) {
+          cell.className = "cell died";
+        } else {
+          cell.className = "cell";
+        }
+      }
     }
   };
 
