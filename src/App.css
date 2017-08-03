@@ -41,6 +41,9 @@ html, body, #root {
     display: inline-block;
     vertical-align: middle;
     margin-right: 1em; }
+  .App-body .options-panel .dropup {
+    display: inline-block;
+    margin-left: 1em; }
 
 .App-body .life-area {
   display: flex;

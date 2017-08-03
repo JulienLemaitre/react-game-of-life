@@ -4,6 +4,24 @@ import LifeArea from './components/life-area';
 import OptionsPanel from './components/options-panel';
 import './App.css';
 
+const FAMOUS_FIGURES = [
+  {
+    name: "loop",
+    type: "famous",
+    board: [[1,1,1,1],[0,0,0,0],[1,1,1,1],[0,0,0,0]]
+  },
+  {
+    name: "creation",
+    type: "famous",
+    board: [[1,1,1,1],[1,1,1,1],[1,1,1,1],[1,1,1,1]]
+  },
+  {
+    name: "starchips",
+    type: "famous",
+    board: [[0,0,0,0],[1,1,1,1],[1,1,1,1],[0,0,0,0]]
+  }
+];
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -16,7 +34,10 @@ class App extends Component {
       speed: 150,
       generation: 0,
       timerOn: false,
-      sizeHasToChange: true
+      sizeHasToChange: true,
+      famousFigures: [],
+      userFigures: [],
+      figureName: ""
     };
 
     this.onStart = this.onStart.bind(this);
@@ -30,11 +51,15 @@ class App extends Component {
     this.onSetSpeed = this.onSetSpeed.bind(this);
     this.onSetBoard = this.onSetBoard.bind(this);
     this.onSizeChange = this.onSizeChange.bind(this);
+    this.onSetFigure = this.onSetFigure.bind(this);
+    this.onFigureNameChange = this.onFigureNameChange.bind(this);
+    this.onSave = this.onSave.bind(this);
   }
 
   componentDidMount() {
     const firstWorld = this.buildWorld();
-    this.setState({world: firstWorld});
+    const userFigures = JSON.parse(localStorage.getItem('Game-of-Life-Figures')) || {};
+    this.setState({world: firstWorld, famousFigures: FAMOUS_FIGURES, userFigures: userFigures});
   }
 
   buildWorld(type = "random", nRow = this.state.nRow, nColumn = this.state.nColumn) {
@@ -155,8 +180,55 @@ class App extends Component {
     }
   }
 
+  onSetFigure(figureName) {
+    if (this.timer) {
+      clearTimeout(this.timer);
+    }
+      let newWorld = [];
+      let lists = [];
+      this.state.famousFigures.map(figure => lists.push(figure));
+      this.state.userFigures.map(figure => lists.push(figure));
+      for (let i = 0 ; i < lists.length ; i++) {
+        if (lists[i].name === figureName) {
+          newWorld = lists[i].board;
+        }
+      }
+      if (newWorld.length > 0) {
+        let height = newWorld.length;
+        let width = newWorld[0].length;
+        this.setState({
+          world: newWorld,
+          nRow: height,
+          nColumn: width,
+          play: false,
+          timerOn: false,
+          generation: 0,
+          sizeHasToChange: true
+        });
+      }
+    // }
+  }
+
   onSizeChange() {
     this.setState({ sizeHasToChange: false });
+  }
+
+  onFigureNameChange(event) {
+    console.log(event.target.value);
+    this.setState({ figureName: event.target.value });
+  }
+
+  onSave() {
+    //TODO problem on save
+      let updatedFigureList = [];
+      const currentWorld = this.state.world;
+      updatedFigureList.push({
+        name: this.state.figureName,
+        type: "user",
+        board: currentWorld
+      });
+      console.log(updatedFigureList);
+      localStorage.setItem('Game-of-Life-Figures', JSON.stringify(updatedFigureList));
   }
 
   render() {
@@ -182,6 +254,12 @@ class App extends Component {
           <OptionsPanel
             onSetSpeed={this.onSetSpeed}
             onSetBoard={this.onSetBoard}
+            onSetFigure={this.onSetFigure}
+            famousFigures={this.state.famousFigures}
+            userFigures={this.state.userFigures}
+            figureName={this.state.figureName}
+            onFigureNameChange={this.onFigureNameChange}
+            onSave={this.onSave}
           />
         </div>
       </div>
