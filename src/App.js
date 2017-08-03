@@ -128,8 +128,9 @@ class App extends Component {
   }
 
   onSwitchCase(event) {
-    const row = event.target.dataset.row;
-    const col = event.target.dataset.cell;
+    const loc = event.target.id.match(/\d+/g);
+    const row = loc[0];
+    const col = loc[1];
     let changedWorld = this.state.world;
     changedWorld[row].splice(col, 1, changedWorld[row][col] > 0 ? 0 : 1);
     this.setState({world: changedWorld});
