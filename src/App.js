@@ -4,8 +4,6 @@ import LifeArea from './components/life-area';
 import OptionsPanel from './components/options-panel';
 import './App.css';
 
-//TODO make the board infinite by linking edges together
-
 const FAMOUS_FIGURES = [
   {
     name: "oscillators",
@@ -109,17 +107,37 @@ class App extends Component {
   }
 
   destin(row, col, world, width = this.state.nColumn, height = this.state.nRow) {
-    let alive = world[row][col], around = 0;
+    let alive = world[row][col], around = 0, column, line;
     for (let c = col - 1 ; c <= col + 1 ; c++) {
-      if (c >= 0 && c < width) {
-        for (let r = row - 1 ; r <= row + 1 ; r++) {
-          if (r >= 0 && r < height && !(c === col && r === row) ) {
-            if (world[r][c] > 0) {
-              around += 1;
-            }
+      if (c === -1) {
+        column = width - 1;
+      } else {
+        column = c % width;
+      }
+      for (let r = row - 1 ; r <= row + 1 ; r++) {
+        if (r === -1) {
+          line = height - 1;
+        } else {
+          line = r % height;
+        }
+        if ( !(column === col && line === row) ) {
+          if (world[line][column] > 0) {
+            around += 1;
           }
         }
       }
+
+
+    // for (let c = col - 1 ; c <= col + 1 ; c++) {
+    //   if (c >= 0 && c < width) {
+    //     for (let r = row - 1 ; r <= row + 1 ; r++) {
+    //       if (r >= 0 && r < height && !(c === col && r === row) ) {
+    //         if (world[r][c] > 0) {
+    //           around += 1;
+    //         }
+    //       }
+    //     }
+    //   }
     }
     if (alive > 0 && around >= 2 && around <= 3) {
       return 1;

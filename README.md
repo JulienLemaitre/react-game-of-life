@@ -10,4 +10,5 @@ Take a look at the demo of my [React Game of Life](http://game-of-life.lemaitre-
 ## Techno used
 * React
 * Bootstrap
+* React-bootstrap
 * SASS
