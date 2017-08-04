@@ -4,23 +4,19 @@ import LifeArea from './components/life-area';
 import OptionsPanel from './components/options-panel';
 import './App.css';
 
+//TODO make the board infinite by linking edges together
+
 const FAMOUS_FIGURES = [
   {
-    name: "loop",
-    type: "famous",
-    board: [[1,1,1,1],[0,0,0,0],[1,1,1,1],[0,0,0,0]]
-  },
-  {
-    name: "creation",
-    type: "famous",
-    board: [[1,1,1,1],[1,1,1,1],[1,1,1,1],[1,1,1,1]]
-  },
-  {
-    name: "starchips",
-    type: "famous",
-    board: [[0,0,0,0],[1,1,1,1],[1,1,1,1],[0,0,0,0]]
+    name: "oscillators",
+    board: [[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,1,1,1,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,1,1,1,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,1,0,0,0,0,1,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,1,0,0,0,0,1,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,1,0,0,0,0,1,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,1,1,1,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,1,1,1,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,1,0,0,0,0,1,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,1,0,0,0,0,1,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,1,0,0,0,0,1,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,1,1,1,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]]
   }
 ];
+
+const USER_FIGURES = [{
+  name: "your default figure",
+  board: [[0,1,0,1,0,1,0],[1,0,1,0,1,0,1],[0,1,0,1,0,1,0],[1,0,1,0,1,0,1],[0,1,0,1,0,1,0],[1,0,1,0,1,0,1],[0,1,0,1,0,1,0]]
+}];
 
 class App extends Component {
   constructor(props) {
@@ -35,7 +31,7 @@ class App extends Component {
       generation: 0,
       timerOn: false,
       sizeHasToChange: true,
-      famousFigures: [],
+      famousFigures: FAMOUS_FIGURES,
       userFigures: [],
       figureName: ""
     };
@@ -50,7 +46,6 @@ class App extends Component {
     this.onRandom = this.onRandom.bind(this);
     this.onSetSpeed = this.onSetSpeed.bind(this);
     this.onSetBoard = this.onSetBoard.bind(this);
-    this.onSizeChange = this.onSizeChange.bind(this);
     this.onSetFigure = this.onSetFigure.bind(this);
     this.onFigureNameChange = this.onFigureNameChange.bind(this);
     this.onSave = this.onSave.bind(this);
@@ -58,8 +53,11 @@ class App extends Component {
 
   componentDidMount() {
     const firstWorld = this.buildWorld();
-    const userFigures = JSON.parse(localStorage.getItem('Game-of-Life-Figures')) || {};
-    this.setState({world: firstWorld, famousFigures: FAMOUS_FIGURES, userFigures: userFigures});
+    let userFigures = JSON.parse(localStorage.getItem('Game-of-Life-Figures'));
+    if (!userFigures) {
+      userFigures = USER_FIGURES;
+    }
+    this.setState({world: firstWorld, userFigures: userFigures});
   }
 
   buildWorld(type = "random", nRow = this.state.nRow, nColumn = this.state.nColumn) {
@@ -79,9 +77,16 @@ class App extends Component {
   }
 
   componentDidUpdate() {
+    let sizeChanged = false, sizeHasToChange = false, startTimer = false;
+    if (this.state.sizeHasToChange) {
+      sizeChanged = true;
+    }
     if (!this.state.timerOn && this.state.play) {
       this.timer = setInterval(this.onNextGen,this.state.speed);
-      this.setState({timerOn: true});
+      startTimer = true;
+    }
+    if (sizeChanged || startTimer) {
+      this.setState({timerOn: startTimer, sizeHasToChange: sizeHasToChange});
     }
   }
 
@@ -149,14 +154,14 @@ class App extends Component {
     if (this.timer) {
       clearTimeout(this.timer);
     }
-    this.setState({world: randomWorld, play: false, timerOn: false, generation: 0});
+    this.setState({world: randomWorld, play: true, timerOn: false, generation: 0});
   }
 
   onSwitchCase(event) {
     const loc = event.target.id.match(/\d+/g);
     const row = loc[0];
     const col = loc[1];
-    let changedWorld = this.state.world;
+    let changedWorld = JSON.parse(JSON.stringify(this.state.world));
     changedWorld[row].splice(col, 1, changedWorld[row][col] > 0 ? 0 : 1);
     this.setState({world: changedWorld});
   }
@@ -176,7 +181,7 @@ class App extends Component {
         clearTimeout(this.timer);
       }
       let newWorld = this.buildWorld("random", height, width);
-      this.setState({world: newWorld, nRow: height, nColumn: width, play: false, timerOn: false, generation: 0, sizeHasToChange: true});
+      this.setState({world: newWorld, nRow: height, nColumn: width, play: true, timerOn: false, generation: 0, sizeHasToChange: true});
     }
   }
 
@@ -184,16 +189,22 @@ class App extends Component {
     if (this.timer) {
       clearTimeout(this.timer);
     }
-      let newWorld = [];
-      let lists = [];
-      this.state.famousFigures.map(figure => lists.push(figure));
-      this.state.userFigures.map(figure => lists.push(figure));
+      let newWorld = [], addedFigures = [];
+      let givenFigures = this.state.famousFigures.map(figure => {
+        return JSON.parse(JSON.stringify(figure));
+      });
+      if (this.state.userFigures.length > 0) {
+        addedFigures = this.state.userFigures.map(figure => {
+          return JSON.parse(JSON.stringify(figure));
+        });
+      }
+      let lists = givenFigures.concat(addedFigures);
       for (let i = 0 ; i < lists.length ; i++) {
         if (lists[i].name === figureName) {
           newWorld = lists[i].board;
         }
       }
-      if (newWorld.length > 0) {
+      if (newWorld && newWorld.length > 0) {
         let height = newWorld.length;
         let width = newWorld[0].length;
         this.setState({
@@ -206,29 +217,26 @@ class App extends Component {
           sizeHasToChange: true
         });
       }
-    // }
-  }
-
-  onSizeChange() {
-    this.setState({ sizeHasToChange: false });
   }
 
   onFigureNameChange(event) {
-    console.log(event.target.value);
     this.setState({ figureName: event.target.value });
   }
 
-  onSave() {
-    //TODO problem on save
-      let updatedFigureList = [];
-      const currentWorld = this.state.world;
-      updatedFigureList.push({
-        name: this.state.figureName,
-        type: "user",
-        board: currentWorld
-      });
-      console.log(updatedFigureList);
-      localStorage.setItem('Game-of-Life-Figures', JSON.stringify(updatedFigureList));
+  onSave(event) {
+    event.preventDefault();
+    let updatedFigureList = [];
+    if (this.state.userFigures && this.state.userFigures.length > 0) {
+      updatedFigureList = this.state.userFigures;
+    }
+    const currentWorld = this.state.world;
+    updatedFigureList.push({
+      name: this.state.figureName,
+      type: "user",
+      board: currentWorld
+    });
+    localStorage.setItem('Game-of-Life-Figures', JSON.stringify(updatedFigureList));
+    this.setState({ userFigures: updatedFigureList});
   }
 
   render() {
@@ -249,7 +257,6 @@ class App extends Component {
             world={this.state.world}
             onSwitchCase={this.onSwitchCase}
             sizeHasToChange={this.state.sizeHasToChange}
-            onSizeChange={this.onSizeChange}
           />
           <OptionsPanel
             onSetSpeed={this.onSetSpeed}

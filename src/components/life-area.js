@@ -51,7 +51,6 @@ const LifeArea = ({ world, onSwitchCase, sizeHasToChange, onSizeChange }) => {
 
       grid.appendChild(row);
     }
-    onSizeChange();
   };
 
   const changeGrid = (targetContainer,world) => {
