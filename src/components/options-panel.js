@@ -1,7 +1,7 @@
 import React from 'react';
 import SplitButton from 'react-bootstrap/lib/SplitButton';
 import MenuItem from 'react-bootstrap/lib/MenuItem';
-import { Form, FormGroup, ControlLabel, FormControl, Button } from 'react-bootstrap';
+import { Form, FormGroup, FormControl, Button } from 'react-bootstrap';
 
 const OptionsPanel = (props) => {
 
@@ -46,8 +46,6 @@ const OptionsPanel = (props) => {
         <div className="option">
           <Form inline onSubmit={props.onSave}>
             <FormGroup controlId="formInlineName">
-              <ControlLabel>Figure name</ControlLabel>
-              {' '}
               <FormControl
                 type="text"
                 placeholder="Figure name"
@@ -57,7 +55,7 @@ const OptionsPanel = (props) => {
             </FormGroup>
             {' '}
             <Button type="submit">
-              Save
+              Save my figure
             </Button>
           </Form>
         </div>
