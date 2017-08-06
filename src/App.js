@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ControlPanel from './components/control-panel';
 import LifeArea from './components/life-area';
 import OptionsPanel from './components/options-panel';
+import FiguresPanel from './components/figures-panel';
 import './App.css';
 
 const FAMOUS_FIGURES = [
@@ -256,36 +257,41 @@ class App extends Component {
     localStorage.setItem('Game-of-Life-Figures', JSON.stringify(updatedFigureList));
     this.setState({ userFigures: updatedFigureList});
   }
+        // <div className="App-header">
+        //   <h1>The Game of Life</h1>
+        // </div>
 
   render() {
     return (
       <div className="App">
-        <div className="App-header">
-          <h1>The Game of Life</h1>
-        </div>
         <div className="App-body">
-          <ControlPanel
-            onStart={this.onStart}
-            onPause={this.onPause}
-            onClear={this.onClear}
-            onRandom={this.onRandom}
-            generation={this.state.generation}
-          />
-          <LifeArea
-            world={this.state.world}
-            onSwitchCase={this.onSwitchCase}
-            sizeHasToChange={this.state.sizeHasToChange}
-          />
           <OptionsPanel
             onSetSpeed={this.onSetSpeed}
             onSetBoard={this.onSetBoard}
-            onSetFigure={this.onSetFigure}
-            famousFigures={this.state.famousFigures}
-            userFigures={this.state.userFigures}
-            figureName={this.state.figureName}
-            onFigureNameChange={this.onFigureNameChange}
-            onSave={this.onSave}
           />
+          <div className="center">
+            <h1>The Game of Life</h1>
+            <ControlPanel
+              onStart={this.onStart}
+              onPause={this.onPause}
+              onClear={this.onClear}
+              onRandom={this.onRandom}
+              generation={this.state.generation}
+            />
+            <LifeArea
+              world={this.state.world}
+              onSwitchCase={this.onSwitchCase}
+              sizeHasToChange={this.state.sizeHasToChange}
+            />
+            <FiguresPanel
+              onSetFigure={this.onSetFigure}
+              famousFigures={this.state.famousFigures}
+              userFigures={this.state.userFigures}
+              figureName={this.state.figureName}
+              onFigureNameChange={this.onFigureNameChange}
+              onSave={this.onSave}
+            />
+          </div>
         </div>
       </div>
     );

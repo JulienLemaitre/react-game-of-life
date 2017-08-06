@@ -5,70 +5,111 @@ html, body, #root {
 
 .App {
   text-align: center;
-  background: radial-gradient(ellipse at center bottom, #6fa92d 0%, #323c58 75%);
-  min-height: 100%; }
-
-.App-header {
-  padding: 20px;
-  color: white; }
-  .App-header h1 {
-    color: #fecc00;
-    font-size: 3.5em;
-    font-weight: bold; }
-
-.App-body .panel-area {
-  padding: 2em;
-  color: white; }
-
-.App-body .control-panel .generation {
-  display: inline-block;
-  vertical-align: middle;
-  margin-left: 1em;
-  width: 10em;
-  text-align: left; }
-
-.App-body .options-panel {
+  background: radial-gradient(ellipse at right center, #6fa92d 0%, #323c58 65%);
+  min-height: 100%;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center; }
-  .App-body .options-panel .central {
+
+.btn {
+  background: none;
+  border: none;
+  text-shadow: none;
+  color: #ffffff;
+  box-shadow: none; }
+  .btn:hover, .btn:active, .btn:focus {
+    background: none;
+    color: #fecc00; }
+
+h1 {
+  color: #fecc00;
+  font-size: 49px;
+  font-weight: bold;
+  text-align: left;
+  margin: 0;
+  height: 60px; }
+
+.App-body {
+  display: flex;
+  justify-content: center; }
+
+.panel-area {
+  color: white; }
+
+.control-panel {
+  display: flex;
+  align-items: flex-end;
+  height: 40px; }
+  .control-panel .generation {
+    padding: 6px; }
+
+.options-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  width: 100px; }
+  .options-panel .central {
     display: flex;
     flex-direction: column;
     align-items: flex-start; }
-  .App-body .options-panel .option:first-child {
-    margin-bottom: 0.5em; }
-  .App-body .options-panel .type {
-    display: inline-block;
-    vertical-align: middle;
-    margin-right: 1em; }
-  .App-body .options-panel .dropup {
+  .options-panel .option {
+    margin-top: 1.5em; }
+    .options-panel .option:first-child {
+      border-top: none;
+      margin-top: 105px; }
+  .options-panel .type {
+    text-transform: uppercase;
+    font-weight: bold;
+    text-align: center; }
+  .options-panel .dropup {
     display: inline-block;
     margin-left: 1em; }
 
-.App-body .life-area {
+.life-area {
   display: flex;
   justify-content: center; }
-  .App-body .life-area .grid {
-    margin: 1em auto;
+  .life-area .grid {
     display: flex;
     flex-direction: column;
     justify-content: center;
     background-color: #323c58;
     padding: 1px 0 0 1px; }
-    .App-body .life-area .grid .line {
+    .life-area .grid .line {
       display: flex;
       flex-direction: row;
       justify-content: center; }
-    .App-body .life-area .grid .cell {
+    .life-area .grid .cell {
       width: 8px;
       height: 8px;
       position: relative;
       margin: 0 1px 1px 0;
       background-color: #3c4662;
       cursor: pointer; }
-      .App-body .life-area .grid .cell.alive {
+      .life-area .grid .cell.alive {
         background-color: #24a934; }
-      .App-body .life-area .grid .cell.born {
+      .life-area .grid .cell.born {
         background-color: #6fa92d; }
-      .App-body .life-area .grid .cell.died {
+      .life-area .grid .cell.died {
         background-color: #39635e; }
+
+.figures-panel {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 0.8em; }
+  .figures-panel .form-control {
+    background-color: transparent;
+    color: white;
+    border-radius: 4px 0 0 4px;
+    width: 12em; }
+    .figures-panel .form-control:focus {
+      border-color: #fecc00; }
+  .figures-panel button[type=submit] {
+    border-radius: 0 4px 4px 0;
+    border: solid 1px #ccc;
+    border-left: none;
+    background-color: rgba(255, 255, 255, 0.2); }
+  .figures-panel .btn-group.open .dropdown-toggle {
+    box-shadow: none; }
+  .figures-panel .dropdown-menu {
+    background-color: rgba(255, 255, 255, 0.85); }

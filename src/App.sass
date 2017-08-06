@@ -13,87 +13,139 @@ html, body, #root
 
 .App
   text-align: center
-  background: radial-gradient(ellipse at center bottom, $born 0%, $background 75%)
+  background: radial-gradient(ellipse at right center, $born 0%, $background 65%)
   min-height: 100%
+  display: flex
+  flex-direction: column
+  justify-content: center
+  align-items: center
 
+// General Bootstrap styling
+.btn
+  background: none
+  border: none
+  text-shadow: none
+  color: #ffffff
+  box-shadow: none
 
-.App-header
-  padding: 20px
-  color: white
-
-  h1
+  &:hover, &:active, &:focus
+    background: none
     color: $popColor
-    font-size: 3.5em
-    font-weight: bold
+
+h1
+  color: $popColor
+  font-size: 49px
+  font-weight: bold
+  text-align: left
+  margin: 0
+  height: 60px
 
 .App-body
+  display: flex
+  justify-content: center
+  //align-items: center
 
-  .panel-area
-    padding: 2em
-    color: white
+.panel-area
+  //padding: 2em
+  color: white
 
 
-  .control-panel
-    
-    .generation
-      display: inline-block
-      vertical-align: middle
-      margin-left: 1em
-      width: 10em
-      text-align: left
+.control-panel
+  display: flex
+  //justify-content: space-between
+  align-items: flex-end
+  height: 40px
 
-  .options-panel
+  .generation
+    //width: 10em
+    //text-align: right
+    padding: 6px
+
+.options-panel
+  display: flex
+  flex-direction: column
+  align-items: flex-end
+  width: 100px
+
+  .central
     display: flex
     flex-direction: column
-    align-items: center
+    align-items: flex-start
 
-    .central
-      display: flex
-      flex-direction: column
-      align-items: flex-start
+  .option
+    margin-top: 1.5em
 
-    .option:first-child
-      margin-bottom: 0.5em
+    &:first-child
+      border-top: none
+      margin-top: 105px
 
-    .type
-      display: inline-block
-      vertical-align: middle
-      margin-right: 1em
-      
-    .dropup
-      display: inline-block
-      margin-left: 1em
+  .type
+    text-transform: uppercase
+    font-weight: bold
+    text-align: center
 
-  .life-area
+    &:first-child
+
+  .dropup
+    display: inline-block
+    margin-left: 1em
+
+.life-area
+  display: flex
+  justify-content: center
+
+  .grid
+    //margin: 1em auto
     display: flex
+    flex-direction: column
     justify-content: center
+    background-color: $grid
+    padding: 1px 0 0 1px
 
-    .grid
-      margin: 1em auto
+    .line
       display: flex
-      flex-direction: column
+      flex-direction: row
       justify-content: center
-      background-color: $grid
-      padding: 1px 0 0 1px
 
-      .line
-        display: flex
-        flex-direction: row
-        justify-content: center
+    .cell
+      width: 8px
+      height: 8px
+      position: relative
+      margin: 0 1px 1px 0
+      background-color: $dead
+      cursor: pointer
 
-      .cell
-        width: 8px
-        height: 8px
-        position: relative
-        margin: 0 1px 1px 0
-        background-color: $dead
-        cursor: pointer
+      &.alive
+        background-color: $alive
 
-        &.alive
-          background-color: $alive
+      &.born
+        background-color: $born
 
-        &.born
-          background-color: $born
+      &.died
+        background-color: $died
 
-        &.died
-          background-color: $died
+.figures-panel
+  display: flex
+  justify-content: space-between
+  margin-top: 0.8em
+
+  .form-control
+    background-color: transparent
+    color: white
+    border-radius: 4px 0 0 4px
+    width: 12em;
+
+    &:focus
+      border-color: $popColor
+
+  button[type=submit]
+    border-radius: 0 4px 4px 0
+    border: solid 1px #ccc
+    border-left: none
+    background-color: rgba(256,256,256,0.2)
+
+  .btn-group.open .dropdown-toggle
+    box-shadow: none
+
+  .dropdown-menu
+    background-color: rgba(256,256,256,0.85)
