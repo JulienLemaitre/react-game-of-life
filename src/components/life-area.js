@@ -1,6 +1,6 @@
 import React from 'react';
 
-const LifeArea = ({ world, onSwitchCase, sizeHasToChange, onSizeChange }) => {
+const LifeArea = ({ world, onSwitchCase, sizeHasToChange }) => {
 
   const displayWorld = () => {
     if (sizeHasToChange) {
